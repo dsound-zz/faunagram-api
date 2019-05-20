@@ -5,7 +5,6 @@ class ApplicationController < ActionController::API
   ####### Auth pipeline #########
 
   def encode_token(user_id)
-    byebug 
     JWT.encode({user_id: user_id}, Rails.application.credentials.jwt)
   end
 
@@ -15,7 +14,7 @@ class ApplicationController < ActionController::API
 
   def decode_token
     begin
-      JWT.decode(token, ENV["jwt"])[0]["user_id"]
+      JWT.decode(token, Rails.application.credentials.jwt[0]["user_id"])
     rescue
       nil
     end

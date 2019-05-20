@@ -10,12 +10,14 @@ class Application < Rails::Application
 
 
 
-config.middleware.insert_before 0, Rack::Cors do
+Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
-    origins 'http://localhost:3000', 'https://faunagram-app.herokuapp.com/' #replace this url with that of your own heroku client app
-    resource '*', :headers => :any, :methods => [:get, :post, :patch, :put, :delte]
+    origins '*'
+    resource '*',
+      headers: :any,
+      methods: %i(get post put patch delete options head)
   end
 end
 
-end 
+end
 

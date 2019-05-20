@@ -3,7 +3,14 @@ Rails.application.routes.draw do
 
 
   root to: "api/v1/sightings#index"
-  post "/rails/active_storage/direct_uploads", to: "direct_uploads#create"
+  
+  if Rails.env.development?
+    scope format: true, constraints: { format: /jpg|png|gif|PNG/ } do
+      get '/*anything', to: proc { [404, {}, ['']] }, constraints: lambda { |request| !request.path_parameters[:anything].start_with?('rails/') }
+    end
+  end
+
+  # post "/rails/active_storage/direct_uploads", to: "direct_uploads#create"
 
 
   namespace :api do
@@ -28,4 +35,5 @@ Rails.application.routes.draw do
 
     end
   end
+ 
 end

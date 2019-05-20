@@ -1,9 +1,10 @@
 class Api::V1::UsersController < ApplicationController
-
+  include Rails.application.routes.url_helpers
   before_action :find_user, only: [:update, :show, :destroy]
 
   def avatar
-    @avatars = Dir.glob("app/assets/images/avatars/*.png")
+   
+    @avatars = Dir.glob("/Users/demiansims/Development/Faunagram/faunagram-api/app/assets/images/avatars/*.png")
     @avatars.sample
   end
 
@@ -20,10 +21,10 @@ class Api::V1::UsersController < ApplicationController
       username: params[:username],
       password: params[:password]
     )
-    @user.avatar.attach(io: File.open(avatar), filename: 'avatar.png')
+    byebug
     if @user.save
-      encode_token(@user.id)
-      render json: {user: UserSerializer.new(@user), token: ENV['jwt']}, status: :ok
+     @user.avatar.attach(io: File.open(avatar), filename: 'avatar.png')
+      render json: {user: UserSerializer.new(@user), token: Rails.application.credentials.jwt}, status: :ok
     else
       render json: {errors: @user.errors.full_messages}
     end
