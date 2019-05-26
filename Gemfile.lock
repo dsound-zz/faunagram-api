@@ -49,8 +49,8 @@ GEM
       tzinfo (~> 1.1)
     arel (9.0.0)
     aws-eventstream (1.0.3)
-    aws-partitions (1.165.0)
-    aws-sdk-core (3.53.0)
+    aws-partitions (1.167.0)
+    aws-sdk-core (3.53.1)
       aws-eventstream (~> 1.0, >= 1.0.2)
       aws-partitions (~> 1.0)
       aws-sigv4 (~> 1.1)
@@ -176,6 +176,7 @@ DEPENDENCIES
   aws-sdk-s3
   bcrypt (~> 3.1.7)
   bootsnap (>= 1.1.0)
+  bundler (>= 2.0.0)
   byebug
   figaro
   httparty
@@ -192,4 +193,4 @@ RUBY VERSION
    ruby 2.6.1p33
 
 BUNDLED WITH
-   1.17.1
+   2.0.1
