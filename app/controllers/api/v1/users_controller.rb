@@ -1,12 +1,11 @@
 class Api::V1::UsersController < ApplicationController
-  include Rails.application.routes.url_helpers
+  # include Rails.application.routes.url_helpers
   before_action :find_user, only: [:update, :show, :destroy]
 
   def avatar
-   
     @avatars = Dir.glob("/Users/demiansims/Development/Faunagram/faunagram-api/app/assets/images/avatars/*.png")
     @avatars.sample
-  end
+   end
 
 
   def index
@@ -16,13 +15,14 @@ class Api::V1::UsersController < ApplicationController
 
 
   def create
-    @user = User.new(
+    @user = User.new({
       name: params[:name],
       username: params[:username],
       password: params[:password]
-    )
+  })
     if @user.save
      @user.avatar.attach(io: File.open(avatar), filename: 'avatar.png')
+     byebug 
       render json: {user: UserSerializer.new(@user), token: Rails.application.credentials.jwt}, status: :ok
     else
       render json: {errors: @user.errors.full_messages}
