@@ -23,6 +23,7 @@ class User < ApplicationRecord
 
 
   def attachment_url
+    byebug
     if self.attachment.attached?
       Rails.application.routes.url_helpers.rails_blob_url(self.attachement, only_path: false)
     else

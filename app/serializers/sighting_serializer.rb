@@ -1,8 +1,6 @@
 class SightingSerializer < ActiveModel::Serializer
   include Rails.application.routes.url_helpers
 
-
-
   attributes :id, :title, :body, :likes, :image, :created_at, :user_id, :animal_name
 
   belongs_to :user
