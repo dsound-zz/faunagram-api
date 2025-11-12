@@ -80,6 +80,6 @@ test:
 #
 production:
   <<: *default
-  database: faunagram-api_production
-  username: faunagram-api
-  password: <%= ENV['FAUNAGRAM-API_DATABASE_PASSWORD'] %>
+  # Use Supabase PostgreSQL connection string from environment variable
+  # Heroku will set DATABASE_URL, but for Supabase, use SUPABASE_DATABASE_URL
+  url: <%= ENV.fetch('SUPABASE_DATABASE_URL', ENV['DATABASE_URL']) %>

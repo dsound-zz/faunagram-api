@@ -15,6 +15,21 @@ amazon:
   region: us-east-1
   bucket: faunagram
 
+# Supabase Storage (S3-compatible)
+# Configure via environment variables:
+# SUPABASE_URL=https://your-project-ref.supabase.co
+# SUPABASE_SERVICE_KEY=your-service-role-key (from Supabase dashboard)
+# SUPABASE_BUCKET=faunagram (or your bucket name)
+# Note: For S3 compatibility, use your service_role key as both access_key_id and secret_access_key
+supabase:
+  service: S3
+  access_key_id: <%= ENV['SUPABASE_SERVICE_KEY'] %>
+  secret_access_key: <%= ENV['SUPABASE_SERVICE_KEY'] %>
+  region: <%= ENV.fetch('SUPABASE_REGION', 'us-east-1') %>
+  bucket: <%= ENV.fetch('SUPABASE_BUCKET', 'faunagram') %>
+  endpoint: <%= "#{ENV['SUPABASE_URL']}/storage/v1" if ENV['SUPABASE_URL'] %>
+  force_path_style: true
+
 # Remember not to checkin your GCS keyfile to a repository
 # google:
 #   service: GCS
